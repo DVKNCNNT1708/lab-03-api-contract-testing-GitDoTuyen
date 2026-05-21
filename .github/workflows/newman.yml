@@ -27,30 +27,58 @@ jobs:
         run: npx @stoplight/spectral-cli lint contracts/*.yaml --fail-severity error || true
 
       - name: Start Prism mock - Core Business (port 4060)
-        run: nohup npx prism mock contracts/team-core.openapi.yaml -p 4060 --host 0.0.0.0 > prism-core.log 2>&1 &
+        run: |
+          ./node_modules/.bin/prism mock contracts/team-core.openapi.yaml --port 4060 --host 0.0.0.0 &
+          echo "Prism Core PID: $!"
 
       - name: Start Prism mock - AI Vision (port 4011)
-        run: nohup npx prism mock contracts/ai-vision.openapi.yaml -p 4011 --host 0.0.0.0 > prism-vision.log 2>&1 &
+        run: |
+          ./node_modules/.bin/prism mock contracts/ai-vision.openapi.yaml --port 4011 --host 0.0.0.0 &
+          echo "Prism Vision PID: $!"
 
-      - name: Wait for Core Business mock to be ready
-        run: npx wait-on http://localhost:4060/api/v1/core-business/health --timeout 60000
+      - name: Wait for Core Business mock (retry loop)
+        run: |
+          echo "Waiting for Core Business mock on port 4060..."
+          for i in $(seq 1 30); do
+            if curl -s -o /dev/null -w "%{http_code}" http://localhost:4060/api/v1/core-business/health | grep -q "200"; then
+              echo "Core Business mock is ready after ${i} attempts"
+              break
+            fi
+            echo "Attempt $i/30 - not ready yet, sleeping 2s..."
+            sleep 2
+          done
+          curl -s http://localhost:4060/api/v1/core-business/health || (echo "Core Business mock failed to start"; exit 1)
 
-      - name: Wait for AI Vision mock to be ready
-        run: npx wait-on http://localhost:4011/health --timeout 60000
+      - name: Wait for AI Vision mock (retry loop)
+        run: |
+          echo "Waiting for AI Vision mock on port 4011..."
+          for i in $(seq 1 30); do
+            if curl -s -o /dev/null -w "%{http_code}" http://localhost:4011/health | grep -q "200"; then
+              echo "AI Vision mock is ready after ${i} attempts"
+              break
+            fi
+            echo "Attempt $i/30 - not ready yet, sleeping 2s..."
+            sleep 2
+          done
+          curl -s http://localhost:4011/health || (echo "AI Vision mock failed to start"; exit 1)
 
       - name: Run Newman - Core Business collection (mock environment)
         run: |
-          npx newman run postman/collections/team-core.postman_collection.json \
+          ./node_modules/.bin/newman run postman/collections/team-core.postman_collection.json \
             -e postman/environments/team-core_mock.postman_environment.json \
             --reporters cli,junit,htmlextra \
             --reporter-junit-export reports/team-core-newman-mock.xml \
             --reporter-htmlextra-export reports/team-core-newman-mock.html
 
-      - name: Show Prism logs on failure
+      - name: Show Prism process info on failure
         if: failure()
         run: |
-          echo "=== prism-core.log ===" && cat prism-core.log || true
-          echo "=== prism-vision.log ===" && cat prism-vision.log || true
+          echo "=== Running processes ==="
+          ps aux | grep prism || true
+          echo "=== Port 4060 status ==="
+          curl -v http://localhost:4060/api/v1/core-business/health || true
+          echo "=== Port 4011 status ==="
+          curl -v http://localhost:4011/health || true
 
       - name: Upload Newman reports
         if: always()
