@@ -1,0 +1,15 @@
+{
+  "eventId": "0196fb3d-4ad7-7d1e-9f49-5d5148d2b001",
+  "detectionId": "0196fb3d-4ad7-7d1e-9f49-5d5148d2a001",
+  "cameraId": "CAM-01",
+  "detectedAt": "2026-05-20T08:01:00Z",
+  "snapshotUrl": "https://storage.campus.local/frames/CAM-01-001.jpg",
+  "objects": [
+    {
+      "label": "person",
+      "confidence": 0.97,
+      "riskLevel": "HIGH",
+      "boundingBox": { "x": 120, "y": 80, "width": 260, "height": 420 }
+    }
+  ]
+}

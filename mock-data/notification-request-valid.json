@@ -1,0 +1,23 @@
+{
+  "eventId": "0196fb3d-4ad7-7d1e-9f49-5d5148d2b001",
+  "source": "CORE_BUSINESS",
+  "type": "SECURITY_ALERT",
+  "priority": "HIGH",
+  "title": "Unauthorized access detected",
+  "message": "Person detected near restricted gate and access was denied.",
+  "channels": ["email", "telegram"],
+  "receivers": [
+    {
+      "userId": "security01",
+      "email": "security@campus.edu",
+      "phone": "+84987654321",
+      "telegramChatId": "987654321"
+    }
+  ],
+  "metadata": {
+    "businessEventId": "0196fb3d-4ad7-7d1e-9f49-5d5148d2b001",
+    "cameraId": "CAM-01",
+    "gateId": "GATE-A1"
+  },
+  "createdAt": "2026-05-20T08:02:00Z"
+}

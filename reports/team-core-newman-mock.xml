@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="FIT4110 Lab03 - A6 Core Business (team-core)" tests="19" time="0.204">
+  <testsuite name="01_Functional / TC01 - Health Check" id="c9d8001b-997e-4147-a0ea-ae05fe09a1bd" timestamp="2026-05-21T10:58:15.160Z" tests="4" failures="0" errors="0" time="0.025">
+    <testcase name="Status is 200" time="0.025" classname="01FunctionalTc01HealthCheck"/>
+    <testcase name="status field is ok" time="0.025" classname="01FunctionalTc01HealthCheck"/>
+    <testcase name="service field present" time="0.025" classname="01FunctionalTc01HealthCheck"/>
+    <testcase name="time field present" time="0.025" classname="01FunctionalTc01HealthCheck"/>
+  </testsuite>
+  <testsuite name="01_Functional / TC02 - Receive Vision Detection Event" id="64145120-6af5-4b09-ab8a-cc95bb2e598e" timestamp="2026-05-21T10:58:15.160Z" tests="4" failures="0" errors="0" time="0.008">
+    <testcase name="Status is 201" time="0.008" classname="01FunctionalTc02ReceiveVisionDetectionEvent"/>
+    <testcase name="has businessEventId" time="0.008" classname="01FunctionalTc02ReceiveVisionDetectionEvent"/>
+    <testcase name="status is valid enum" time="0.008" classname="01FunctionalTc02ReceiveVisionDetectionEvent"/>
+    <testcase name="createdAt present" time="0.008" classname="01FunctionalTc02ReceiveVisionDetectionEvent"/>
+  </testsuite>
+  <testsuite name="01_Functional / TC03 - Receive Access Event from A3" id="5a700a07-4149-45ec-8308-e89fb34efbb3" timestamp="2026-05-21T10:58:15.160Z" tests="3" failures="0" errors="0" time="0.004">
+    <testcase name="Status is 201" time="0.004" classname="01FunctionalTc03ReceiveAccessEventFromA3"/>
+    <testcase name="has businessEventId" time="0.004" classname="01FunctionalTc03ReceiveAccessEventFromA3"/>
+    <testcase name="has createdAt" time="0.004" classname="01FunctionalTc03ReceiveAccessEventFromA3"/>
+  </testsuite>
+  <testsuite name="01_Functional / TC04 - Get Business Event by ID" id="98e3ac5c-1957-4ec8-8397-1dbb1b8f5754" timestamp="2026-05-21T10:58:15.160Z" tests="4" failures="0" errors="0" time="0.005">
+    <testcase name="Status is 200" time="0.005" classname="01FunctionalTc04GetBusinessEventById"/>
+    <testcase name="has required fields" time="0.005" classname="01FunctionalTc04GetBusinessEventById"/>
+    <testcase name="eventType valid enum" time="0.005" classname="01FunctionalTc04GetBusinessEventById"/>
+    <testcase name="severity valid enum" time="0.005" classname="01FunctionalTc04GetBusinessEventById"/>
+  </testsuite>
+  <testsuite name="01_Functional / TC05 - Update Business Event Status to RESOLVED" id="53faa425-c488-4498-95c5-1cbd6c7466c5" timestamp="2026-05-21T10:58:15.160Z" tests="2" failures="0" errors="0" time="0.006">
+    <testcase name="Status is 200" time="0.006" classname="01FunctionalTc05UpdateBusinessEventStatusToResolved"/>
+    <testcase name="status field is valid enum" time="0.006" classname="01FunctionalTc05UpdateBusinessEventStatusToResolved"/>
+  </testsuite>
+  <testsuite name="01_Functional / TC06 - Create Business Decision" id="093efe4c-4970-4cd9-b14f-63d38e15b621" timestamp="2026-05-21T10:58:15.160Z" tests="3" failures="0" errors="0" time="0.003">
+    <testcase name="Status is 201" time="0.003" classname="01FunctionalTc06CreateBusinessDecision"/>
+    <testcase name="has decisionId" time="0.003" classname="01FunctionalTc06CreateBusinessDecision"/>
+    <testcase name="action is valid enum" time="0.003" classname="01FunctionalTc06CreateBusinessDecision"/>
+  </testsuite>
+  <testsuite name="01_Functional / TC07 - Create Notification via A7" id="de8c5f8a-ad5f-4e67-8649-7be17ec88b38" timestamp="2026-05-21T10:58:15.160Z" tests="3" failures="0" errors="0" time="0.007">
+    <testcase name="Status is 201" time="0.007" classname="01FunctionalTc07CreateNotificationViaA7"/>
+    <testcase name="has notificationId" time="0.007" classname="01FunctionalTc07CreateNotificationViaA7"/>
+    <testcase name="status is PENDING or SUCCESS" time="0.007" classname="01FunctionalTc07CreateNotificationViaA7"/>
+  </testsuite>
+  <testsuite name="01_Functional / TC08 - List Notifications" id="dc8eb4ad-aca5-4171-a69f-521beb462a8b" timestamp="2026-05-21T10:58:15.160Z" tests="3" failures="0" errors="0" time="0.005">
+    <testcase name="Status is 200" time="0.005" classname="01FunctionalTc08ListNotifications"/>
+    <testcase name="has items array" time="0.005" classname="01FunctionalTc08ListNotifications"/>
+    <testcase name="has hasMore boolean" time="0.005" classname="01FunctionalTc08ListNotifications"/>
+  </testsuite>
+  <testsuite name="02_Auth / TC09 - Missing Auth Token returns 401" id="debb6be1-ae7c-45bd-b2f5-e29b09f562d2" timestamp="2026-05-21T10:58:15.160Z" tests="2" failures="0" errors="0" time="0.006">
+    <testcase name="Missing token returns 401 or 403" time="0.006" classname="02AuthTc09MissingAuthTokenReturns401"/>
+    <testcase name="Error follows ProblemDetails" time="0.006" classname="02AuthTc09MissingAuthTokenReturns401"/>
+  </testsuite>
+  <testsuite name="02_Auth / TC10 - Invalid Auth Token returns 401" id="5eb4e4a3-8b6e-47ef-9945-b04dc2988108" timestamp="2026-05-21T10:58:15.160Z" tests="2" failures="0" errors="0" time="0.006">
+    <testcase name="Response received (mock may not enforce auth)" time="0.006" classname="02AuthTc10InvalidAuthTokenReturns401"/>
+    <testcase name="Prism mock note: auth enforcement requires real service" time="0.006" classname="02AuthTc10InvalidAuthTokenReturns401"/>
+  </testsuite>
+  <testsuite name="03_Negative / TC11 - Missing eventId field returns 400" id="95648545-f892-435d-afcd-3a4fafe943ce" timestamp="2026-05-21T10:58:15.160Z" tests="2" failures="0" errors="0" time="0.004">
+    <testcase name="Missing field returns 400 or 422" time="0.004" classname="03NegativeTc11MissingEventIdFieldReturns400"/>
+    <testcase name="Error follows ProblemDetails" time="0.004" classname="03NegativeTc11MissingEventIdFieldReturns400"/>
+  </testsuite>
+  <testsuite name="03_Negative / TC12 - Empty objects array returns 400" id="a84b91c2-d9fd-4160-8896-cfac588ab72b" timestamp="2026-05-21T10:58:15.160Z" tests="2" failures="0" errors="0" time="0.006">
+    <testcase name="Empty objects returns client error" time="0.006" classname="03NegativeTc12EmptyObjectsArrayReturns400"/>
+    <testcase name="ProblemDetails status field valid" time="0.006" classname="03NegativeTc12EmptyObjectsArrayReturns400"/>
+  </testsuite>
+  <testsuite name="03_Negative / TC13 - Invalid decision enum in access event" id="352d4611-9721-4cbc-885e-6bb6f36a47f3" timestamp="2026-05-21T10:58:15.160Z" tests="2" failures="0" errors="0" time="0.004">
+    <testcase name="Invalid enum returns 400 or 422" time="0.004" classname="03NegativeTc13InvalidDecisionEnumInAccessEvent"/>
+    <testcase name="Error has status field" time="0.004" classname="03NegativeTc13InvalidDecisionEnumInAccessEvent"/>
+  </testsuite>
+  <testsuite name="03_Negative / TC14 - Business Event Not Found (404)" id="ce0fe2a6-9131-4340-ac56-ad9413228eb7" timestamp="2026-05-21T10:58:15.160Z" tests="2" failures="0" errors="0" time="0.004">
+    <testcase name="Response received from server" time="0.004" classname="03NegativeTc14BusinessEventNotFound404"/>
+    <testcase name="Prism mock note: 404 enforcement requires real service with data store" time="0.004" classname="03NegativeTc14BusinessEventNotFound404"/>
+  </testsuite>
+  <testsuite name="04_Boundary_Reliability / TC15 - Notification title at max length (200 chars)" id="cb6aa99c-175f-40a6-a078-7d2d17fbda1b" timestamp="2026-05-21T10:58:15.160Z" tests="3" failures="0" errors="0" time="0.006">
+    <testcase name="Max length title accepted or rejected cleanly" time="0.006" classname="04BoundaryReliabilityTc15NotificationTitleAtMaxLength200Chars"/>
+    <testcase name="If 201 - has notificationId" time="0.006" classname="04BoundaryReliabilityTc15NotificationTitleAtMaxLength200Chars"/>
+    <testcase name="If 400/422 - ProblemDetails present" time="0.006" classname="04BoundaryReliabilityTc15NotificationTitleAtMaxLength200Chars"/>
+  </testsuite>
+  <testsuite name="04_Boundary_Reliability / TC16 - Confidence at boundary value 1.0 (max)" id="49e16382-70c6-44fd-9a4b-bd65199f0ab4" timestamp="2026-05-21T10:58:15.160Z" tests="3" failures="0" errors="0" time="0.006">
+    <testcase name="confidence=1.0 accepted or rejected cleanly" time="0.006" classname="04BoundaryReliabilityTc16ConfidenceAtBoundaryValue10Max"/>
+    <testcase name="If 201 - businessEventId returned" time="0.006" classname="04BoundaryReliabilityTc16ConfidenceAtBoundaryValue10Max"/>
+    <testcase name="If error - ProblemDetails with detail" time="0.006" classname="04BoundaryReliabilityTc16ConfidenceAtBoundaryValue10Max"/>
+  </testsuite>
+  <testsuite name="04_Boundary_Reliability / TC17 - List Notifications with limit=1 (pagination boundary)" id="5269962a-7fee-4d48-bdf3-24ed4f6ad62b" timestamp="2026-05-21T10:58:15.160Z" tests="3" failures="0" errors="0" time="0.004">
+    <testcase name="Status is 200" time="0.004" classname="04BoundaryReliabilityTc17ListNotificationsWithLimit1PaginationBoundary"/>
+    <testcase name="Items count respects limit" time="0.004" classname="04BoundaryReliabilityTc17ListNotificationsWithLimit1PaginationBoundary"/>
+    <testcase name="hasMore reflects pagination state" time="0.004" classname="04BoundaryReliabilityTc17ListNotificationsWithLimit1PaginationBoundary"/>
+  </testsuite>
+  <testsuite name="05_Consumer_side_Smoke / TC18 - Smoke test: A6 calls AI Vision mock (POST /detect)" id="ce5ab7dd-ad52-428a-aef3-86010353c7df" timestamp="2026-05-21T10:58:15.160Z" tests="3" failures="0" errors="0" time="0.090">
+    <testcase name="AI Vision mock is reachable (requires mock:vision on port 4011)" time="0.090" classname="05ConsumerSideSmokeTc18SmokeTestA6CallsAiVisionMockPostDetect"/>
+    <testcase name="If 200 - has detection_id" time="0.090" classname="05ConsumerSideSmokeTc18SmokeTestA6CallsAiVisionMockPostDetect"/>
+    <testcase name="If 200 - label is valid enum" time="0.090" classname="05ConsumerSideSmokeTc18SmokeTestA6CallsAiVisionMockPostDetect"/>
+  </testsuite>
+  <testsuite name="06_Local_only_NonFunctional / TC19 - Response time below 1000ms (local only)" id="d441ee2f-9b23-4a93-9f67-d1e5f9ac662a" timestamp="2026-05-21T10:58:15.160Z" tests="1" failures="0" errors="0" time="0.005">
+    <testcase name="Skipped on mock - latency test only for local env" time="0.005" classname="06LocalOnlyNonFunctionalTc19ResponseTimeBelow1000MsLocalOnly"/>
+  </testsuite>
+</testsuites>
