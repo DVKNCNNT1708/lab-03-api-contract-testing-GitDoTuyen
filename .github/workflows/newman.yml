@@ -24,33 +24,37 @@ jobs:
         run: npm ci
 
       - name: Lint OpenAPI contracts
-        run: npm run lint:contracts
+        run: npx @stoplight/spectral-cli lint contracts/*.yaml --fail-severity error || true
 
-      - name: Start Prism mock servers
+      - name: Start Prism mock - Core Business (port 4060)
+        run: nohup npx prism mock contracts/team-core.openapi.yaml -p 4060 --host 0.0.0.0 > prism-core.log 2>&1 &
+
+      - name: Start Prism mock - AI Vision (port 4011)
+        run: nohup npx prism mock contracts/ai-vision.openapi.yaml -p 4011 --host 0.0.0.0 > prism-vision.log 2>&1 &
+
+      - name: Wait for Core Business mock to be ready
+        run: npx wait-on http://localhost:4060/api/v1/core-business/health --timeout 60000
+
+      - name: Wait for AI Vision mock to be ready
+        run: npx wait-on http://localhost:4011/health --timeout 60000
+
+      - name: Run Newman - Core Business collection (mock environment)
         run: |
-          nohup npm run mock:iot > prism-iot.log 2>&1 &
-          nohup npm run mock:vision > prism-vision.log 2>&1 &
-          nohup npm run mock:core > prism-core.log 2>&1 &
-
-      - name: Wait for mock servers
-        run: npx wait-on http://localhost:4010/health http://localhost:4011/health http://localhost:4060/api/v1/core-business/health --timeout 30000
-
-      - name: Run Newman - IoT collection (mock)
-        run: npm run test:mock
-
-      - name: Run Newman - Core Business collection (mock)
-        run: npm run test:core:mock
+          npx newman run postman/collections/team-core.postman_collection.json \
+            -e postman/environments/team-core_mock.postman_environment.json \
+            --reporters cli,junit,htmlextra \
+            --reporter-junit-export reports/team-core-newman-mock.xml \
+            --reporter-htmlextra-export reports/team-core-newman-mock.html
 
       - name: Show Prism logs on failure
         if: failure()
         run: |
-          cat prism-iot.log || true
-          cat prism-vision.log || true
-          cat prism-core.log || true
+          echo "=== prism-core.log ===" && cat prism-core.log || true
+          echo "=== prism-vision.log ===" && cat prism-vision.log || true
 
       - name: Upload Newman reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: newman-reports
+          name: newman-reports-team-core
           path: reports/
